@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorateur Immobilier - Bordeaux Métropole</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        #header { background: #0056b3; color: white; padding: 15px; text-align: center; font-size: 22px; }
+        #tabs { display: flex; justify-content: center; background: #eee; padding: 10px; }
+        .tab { padding: 10px 20px; cursor: pointer; margin: 0 10px; background: white; border: 1px solid #ccc; }
+        .tab:hover, .active-tab { background: #ddd; }
+        .tab-content { display: none; padding: 20px; }
+        .active { display: block; }
+        .container { display: flex; }
+        #map { height: 400px; width: 60%; margin-right: 20px; border: 1px solid #ccc; }
+        #stats-panel { width: 35%; padding: 10px; background: #f4f4f4; }
+        .stats-container { display: flex; justify-content: space-around; margin-top: 20px; }
+        .stat-box { background: #fff; padding: 15px; border-radius: 5px; text-align: center; width: 100%; margin-bottom: 10px; }
+        canvas { width: 100% !important; height: 300px !important; }
+        .search-container { text-align: center; margin-bottom: 20px; }
+        .search-container input { padding: 10px; width: 250px; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div id="header">Explorateur de Données de l'Immobilier - Bordeaux Métropole</div>
+    
+    <div id="tabs">
+        <div class="tab active-tab" onclick="showTab('recherche')">🔍 Recherche</div>
+        <div class="tab" onclick="showTab('stats')">📊 Statistiques</div>
+        <div class="tab" onclick="showTab('carte')">🗺️ Carte Interactive</div>
+        <div class="tab" onclick="showTab('sources')">📄 Sources</div>
+    </div>
+    
+    <div id="recherche" class="tab-content active">
+        <h3>Recherche de Données par Quartier</h3>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Rechercher un quartier...">
+            <button onclick="searchData()">Rechercher</button>
+        </div>
+        <div id="search-results"></div>
+    </div>
+    
+    <div id="stats" class="tab-content">
+        <h3>Statistiques Descriptives</h3>
+        <div class="stats-container">
+            <div class="stat-box">
+                <h4>Nombre total de ventes</h4>
+                <p>12,345</p>
+            </div>
+            <div class="stat-box">
+                <h4>Prix médian au m²</h4>
+                <p>4,250€</p>
+            </div>
+            <div class="stat-box">
+                <h4>Variation des prix</h4>
+                <p>+7.2%</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="carte" class="tab-content">
+        <h3>Carte Interactive</h3>
+        <div class="container">
+            <div id="map"></div>
+            <div id="stats-panel">
+                <h4>Données du quartier sélectionné</h4>
+                <div id="selected-stats"></div>
+                <canvas id="priceChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div id="sources" class="tab-content">
+        <h3>Sources des Données</h3>
+        <p>Les données utilisées proviennent de <a href="https://data.gouv.fr" target="_blank">data.gouv.fr</a>, OpenStreetMap et des bases de données immobilières.</p>
+    </div>
+    
+    <script>
+        function showTab(tabId) { 
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active-tab'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active-tab');
+            if (tabId === 'carte') {
+                setTimeout(() => { map.invalidateSize(); }, 300);
+            }
+        }
+
+        var map = L.map('map').setView([44.8378, -0.5792], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        fetch('C:\Users\saadb\OneDrive\Bureau\open data\bordeaux_data.geojson')
+            .then(response => response.json())
+            .then(data => {
+                console.log("GeoJSON Data Loaded:", data);
+                data.features.forEach(feature => {
+                    var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
+                    marker.bindTooltip(
+                        `<b>${feature.properties.nom_quartier}</b><br>
+                        Prix m² 2022: ${feature.properties.prix_m2_2022}€<br>
+                        Prix m² 2025: ${feature.properties.prix_m2_2025}€<br>
+                        Évolution: ${feature.properties.evolution}%`,
+                        { permanent: false, direction: "top" }
+                    );
+                    marker.on('click', function() {
+                        document.getElementById('selected-stats').innerHTML = `<b>${feature.properties.nom_quartier}</b><br>Prix m² 2022: ${feature.properties.prix_m2_2022}€<br>Prix m² 2025: ${feature.properties.prix_m2_2025}€`;
+                        updateChart([2022, 2025], [feature.properties.prix_m2_2022, feature.properties.prix_m2_2025]);
+                    });
+                });
+            });
+
+        function updateChart(labels, data) {
+            new Chart(document.getElementById('priceChart'), {
+                type: 'line',
+                data: { labels: labels, datasets: [{ label: 'Évolution des prix', data: data, borderColor: 'blue', fill: false }] },
+            });
+        }
+    </script>
+</body>
+</html>

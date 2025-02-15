@@ -1,0 +1,145 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Saint-Michel",
+        "ville": "Bordeaux",
+        "prix_m2_2022": 4500,
+        "prix_m2_2025": 4950,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.5780, 44.8350]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Chartrons",
+        "ville": "Bordeaux",
+        "prix_m2_2022": 5200,
+        "prix_m2_2025": 5720,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.5788, 44.8510]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Bastide",
+        "ville": "Bordeaux",
+        "prix_m2_2022": 4700,
+        "prix_m2_2025": 5170,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.5620, 44.8410]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "La Victoire",
+        "ville": "Bordeaux",
+        "prix_m2_2022": 4800,
+        "prix_m2_2025": 5300,
+        "evolution": 10.4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.5790, 44.8310]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Capucins",
+        "ville": "Bordeaux",
+        "prix_m2_2022": 4900,
+        "prix_m2_2025": 5400,
+        "evolution": 10.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.5730, 44.8360]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Saint-Pierre",
+        "ville": "Bordeaux",
+        "prix_m2_2022": 5100,
+        "prix_m2_2025": 5610,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.5740, 44.8410]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Pessac",
+        "ville": "Pessac",
+        "prix_m2_2022": 4000,
+        "prix_m2_2025": 4400,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.6260, 44.8110]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Mérignac",
+        "ville": "Mérignac",
+        "prix_m2_2022": 4100,
+        "prix_m2_2025": 4510,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.6470, 44.8310]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Talence",
+        "ville": "Talence",
+        "prix_m2_2022": 4200,
+        "prix_m2_2025": 4620,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.5910, 44.8110]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Arcachon",
+        "ville": "Arcachon",
+        "prix_m2_2022": 7500,
+        "prix_m2_2025": 8250,
+        "evolution": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.1690, 44.6510]
+      }
+    }
+  ]
+}

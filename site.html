@@ -29,6 +29,7 @@
     <div id="header">Explorateur de Données de l'Immobilier - Bordeaux Métropole</div>
     
     <div id="tabs">
+        
         <div class="tab active-tab" onclick="showTab('recherche')">🔍 Recherche</div>
         <div class="tab" onclick="showTab('stats')">📊 Statistiques</div>
         <div class="tab" onclick="showTab('carte')">🗺️ Carte Interactive</div>
@@ -95,7 +96,7 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        fetch('C:\Users\saadb\OneDrive\Bureau\open data\bordeaux_data.geojson')
+        fetch('./bordeaux_data.geojson')
             .then(response => response.json())
             .then(data => {
                 console.log("GeoJSON Data Loaded:", data);

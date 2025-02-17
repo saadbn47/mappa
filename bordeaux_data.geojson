@@ -4,113 +4,18 @@
     {
       "type": "Feature",
       "properties": {
-        "nom_quartier": "Saint-Michel",
-        "ville": "Bordeaux",
-        "prix_m2_2022": 4500,
-        "prix_m2_2025": 4950,
-        "evolution": 10
+        "nom_quartier": "Talence",
+        "ville": "Talence",
+        "adresse": "12 Rue de la Liberté",
+        "prix_m2_2021": 4000,
+        "prix_m2_2022": 4200,
+        "prix_m2_2023": 4400,
+        "pred_m2_2024": 4600,
+        "prix_m2_2024": 4700
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-0.5780, 44.8350]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom_quartier": "Chartrons",
-        "ville": "Bordeaux",
-        "prix_m2_2022": 5200,
-        "prix_m2_2025": 5720,
-        "evolution": 10
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-0.5788, 44.8510]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom_quartier": "Bastide",
-        "ville": "Bordeaux",
-        "prix_m2_2022": 4700,
-        "prix_m2_2025": 5170,
-        "evolution": 10
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-0.5620, 44.8410]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom_quartier": "La Victoire",
-        "ville": "Bordeaux",
-        "prix_m2_2022": 4800,
-        "prix_m2_2025": 5300,
-        "evolution": 10.4
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-0.5790, 44.8310]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom_quartier": "Capucins",
-        "ville": "Bordeaux",
-        "prix_m2_2022": 4900,
-        "prix_m2_2025": 5400,
-        "evolution": 10.2
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-0.5730, 44.8360]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom_quartier": "Saint-Pierre",
-        "ville": "Bordeaux",
-        "prix_m2_2022": 5100,
-        "prix_m2_2025": 5610,
-        "evolution": 10
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-0.5740, 44.8410]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom_quartier": "Pessac",
-        "ville": "Pessac",
-        "prix_m2_2022": 4000,
-        "prix_m2_2025": 4400,
-        "evolution": 10
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-0.6260, 44.8110]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "nom_quartier": "Mérignac",
-        "ville": "Mérignac",
-        "prix_m2_2022": 4100,
-        "prix_m2_2025": 4510,
-        "evolution": 10
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-0.6470, 44.8310]
+        "coordinates": [-0.5915, 44.8105]
       }
     },
     {
@@ -118,27 +23,84 @@
       "properties": {
         "nom_quartier": "Talence",
         "ville": "Talence",
-        "prix_m2_2022": 4200,
-        "prix_m2_2025": 4620,
-        "evolution": 10
+        "adresse": "8 Avenue des Sciences",
+        "prix_m2_2021": 3900,
+        "prix_m2_2022": 4100,
+        "prix_m2_2023": 4300,
+        "pred_m2_2024": 4500,
+        "prix_m2_2024": 4550
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-0.5910, 44.8110]
+        "coordinates": [-0.5922, 44.8112]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "nom_quartier": "Arcachon",
-        "ville": "Arcachon",
-        "prix_m2_2022": 7500,
-        "prix_m2_2025": 8250,
-        "evolution": 10
+        "nom_quartier": "Talence",
+        "ville": "Talence",
+        "adresse": "25 Rue Pasteur",
+        "prix_m2_2021": 4100,
+        "prix_m2_2022": 4300,
+        "prix_m2_2023": 4500,
+        "pred_m2_2024": 4700,
+        "prix_m2_2024": 4750
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-1.1690, 44.6510]
+        "coordinates": [-0.5930, 44.8120]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Pessac",
+        "ville": "Pessac",
+        "adresse": "14 Rue du Château",
+        "prix_m2_2021": 3800,
+        "prix_m2_2022": 4000,
+        "prix_m2_2023": 4200,
+        "pred_m2_2024": 4400,
+        "prix_m2_2024": 4450
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.6275, 44.8105]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Pessac",
+        "ville": "Pessac",
+        "adresse": "5 Avenue Jean Jaurès",
+        "prix_m2_2021": 3700,
+        "prix_m2_2022": 3900,
+        "prix_m2_2023": 4100,
+        "pred_m2_2024": 4300,
+        "prix_m2_2024": 4350
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.6280, 44.8110]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom_quartier": "Pessac",
+        "ville": "Pessac",
+        "adresse": "30 Rue des Vignes",
+        "prix_m2_2021": 3850,
+        "prix_m2_2022": 4050,
+        "prix_m2_2023": 4250,
+        "pred_m2_2024": 4450,
+        "prix_m2_2024": 4500
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.6268, 44.8125]
       }
     }
   ]

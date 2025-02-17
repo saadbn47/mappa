@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorateur Immobilier - Bordeaux Métropole</title>
+    <title>Mappa : l'Explorateur Immobilier - Bordeaux Métropole</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
@@ -188,7 +188,8 @@
 document.getElementById('iris_code').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         handleSearch();
-    }
+    }gunicorn plot:app
+
 });
 function showTab(tabId) { 
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));

@@ -61,7 +61,7 @@
         }
         #map {
             height: 500px;
-            width: 65%;
+            width: 100%;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
@@ -88,116 +88,38 @@
             min-width: 200px;
             border: 1px solid #eee;
         }
-        .search-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-        .search-container input {
-            padding: 12px 20px;
-            width: 300px;
-            border: 2px solid #eee;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-        .search-container input:focus {
-            outline: none;
-            border-color: #1e3c72;
-        }
-        .search-container button {
-            padding: 12px 24px;
-            background: #1e3c72;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-left: 10px;
-            transition: background 0.3s ease;
-        }
-        .search-container button:hover {
-            background: #2a5298;
-        }
     </style>
 </head>
 <body>
     <div id="header">Explorateur de Données de l'Immobilier - Bordeaux Métropole</div>
     
     <div id="tabs">
-        <div class="tab" onclick="showTab('carte')">🗺️ Carte Interactive</div>
-        <div class="tab active-tab" onclick="showTab('stats')">📊 Statistiques</div>
+        <div class="tab active-tab" onclick="showTab('carte')">🗺️ Carte Interactive</div>
     </div>
     
-    <div id="carte" class="tab-content">
+    <div id="carte" class="tab-content active">
         <h3>Carte Interactive</h3>
         <div class="container">
             <div id="map"></div>
             <div id="stats-panel">
-                <h4>Données du quartier sélectionné</h4>
+                <h4>Données du bien sélectionné</h4>
                 <div id="selected-stats"></div>
                 <canvas id="priceChart"></canvas>
             </div>
         </div>
     </div>
     
-    <div id="stats" class="tab-content active">
-        <div class="search-container">
-            <input type="text" id="iris_code" name="iris_code" placeholder="Entrer le code IRIS">
-            <button onclick="handleSearch()">Rechercher</button>
-        </div>
-        <div class="stats-container">
-            <div class="stat-box">
-                <h4>Boxplots des Valeurs Foncières</h4>
-                <img id="boxplot-image" src="{{ url_for('static', filename='boxplots.png') }}" alt="Boxplots des Valeurs Foncières">
-            </div>
-        </div>
-        
-    
     <script>
-  // Replace the handleSearch function with:
-
-  function handleSearch() {
-    const irisCode = document.getElementById('iris_code').value;
-    if (!irisCode) {
-        alert('Veuillez entrer un code IRIS');
-        return;
-    }
-
-    fetch('/generate_boxplot', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `iris_code=${encodeURIComponent(irisCode)}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Add cache-busting parameter to force image refresh
-            document.getElementById('boxplot-image').src = `/static/boxplots.png?t=${Date.now()}`;
-        } else {
-            alert('Erreur: ' + (data.error || 'Code IRIS non trouvé'));
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Une erreur est survenue lors de la génération du boxplot');
-    });
-}
-
-// Add event listener for Enter key
-document.getElementById('iris_code').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        handleSearch();
-    }
-
-});
-function showTab(tabId) { 
+        function showTab(tabId) { 
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active-tab'));
             document.getElementById(tabId).classList.add('active');
             document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active-tab');
             if (tabId === 'carte') {
-                setTimeout(() => { map.invalidateSize(); }, 300);
+                setTimeout(() => { 
+                    map.invalidateSize();
+                    window.dispatchEvent(new Event('resize')); 
+                }, 300);
             }
         }
 
@@ -213,35 +135,42 @@ function showTab(tabId) {
             .then(data => {
                 console.log("GeoJSON Data Loaded:", data);
                 data.features.forEach(feature => {
-                    var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]);
-                    marker.bindTooltip(
-                        `<b>Code IRIS:</b> ${feature.properties.code_iris}<br>
+                    var marker = L.marker([
+                        feature.geometry.coordinates[1],
+                        feature.geometry.coordinates[0]
+                    ]);
+                    
+                    marker.bindPopup(`
+                        <b>Code IRIS:</b> ${feature.properties.code_iris}<br>
+                        <b>Adresse complète:</b> ${feature.properties['Adresse complète']}<br>
+                        <b>y_pred:</b> ${feature.properties['y_pred']}<br>
                         <b>Valeur foncière/m²:</b> ${feature.properties['valeur_fonciere/m²']}€<br>
-                        <b>Prédiction:</b> ${feature.properties.y_pred}€<br>
-                        <b>Latitude:</b> ${feature.geometry.coordinates[1]}<br>
-                        <b>Longitude:</b> ${feature.geometry.coordinates[0]}`,
-                        { permanent: false, direction: "top" }
-                    );
+                        <b>Surface:</b> ${feature.properties['Surface reelle bati']}m²<br>
+                        <b>Pièces:</b> ${feature.properties['Nombre pieces principales']}<br>
+                    `);
+
                     marker.on('click', function() {
-                        document.getElementById('selected-stats').innerHTML = `<b>Code IRIS:</b> ${feature.properties.code_iris}<br>
-                        <b>Valeur foncière/m²:</b> ${feature.properties['valeur_fonciere/m²']}€<br>
-                        <b>Prédiction:</b> ${feature.properties.y_pred}€<br>
-                        <b>Latitude:</b> ${feature.geometry.coordinates[1]}<br>
-                        <b>Longitude:</b> ${feature.geometry.coordinates[0]}`;
+                        updateStatsPanel(feature.properties);
                     });
+
                     markers.addLayer(marker);
                 });
                 map.addLayer(markers);
             })
             .catch(error => {
-                console.error("Error loading GeoJSON data:", error);
+                console.error("Error loading GeoJSON:", error);
             });
 
-        function updateChart(labels, data) {
-            new Chart(document.getElementById('priceChart'), {
-                type: 'line',
-                data: { labels: labels, datasets: [{ label: 'Évolution des prix', data: data, borderColor: 'blue', fill: false }] },
-            });
+        function updateStatsPanel(properties) {
+            document.getElementById('stats-panel').innerHTML = `
+                <h4>Détails du bien</h4>
+                <p><b>Code IRIS:</b> ${properties.code_iris}</p>
+                <p><b>Adresse complète:</b> ${properties['Adresse complète']}</p>
+                <p><b>y_pred:</b> ${properties['y_pred']}</p>
+                <p><b>Valeur foncière/m²:</b> ${properties['valeur_fonciere/m²']}€</p>
+                <p><b>Surface:</b> ${properties['Surface reelle bati']}m²</p>
+                <p><b>Nombre de pièces:</b> ${properties['Nombre pieces principales']}</p>
+            `;
         }
     </script>
 </body>
